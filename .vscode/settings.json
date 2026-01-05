@@ -1,0 +1,9 @@
+{
+    "executableName": "main.exe",
+    "files.associations": {
+        "wav.h": "c",
+        "tinywav.h": "c",
+        "string.h": "c",
+        "algorithm": "c"
+    }
+}
