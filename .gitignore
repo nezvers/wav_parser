@@ -1,3 +1,4 @@
 *.DMP
 *.exe
 test/test_write.exe
+test/output_32.wav

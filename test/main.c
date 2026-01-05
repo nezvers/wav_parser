@@ -17,6 +17,11 @@ void use_wav(WAVFile *wav_file){
     float* samples = wav_file->buffer.data;
 
     for (int s = 0; s < sample_count; s++){
+        if (channel_count == 1){
+            float sample = samples[s * channel_count];
+            printf("%s: %f\n", "Mono", sample);
+            continue;
+        }
         for (int c = 0; c < channel_count; c++){
             float sample = samples[s * channel_count + c];
             printf("%s: %f\n", c==0 ? "L" : "R", sample);
@@ -27,7 +32,7 @@ void use_wav(WAVFile *wav_file){
 void read_wav(){
     // From file
     WAVFile wav_file;
-    FILE* fp = fopen("resources/stereo_32_L.wav", "rb");
+    FILE* fp = fopen("resources/mono_16_pcm.wav", "rb");
     if (WavGetFileProperty(&wav_file, fp) != 0){
         fclose(fp);
         return;
@@ -80,7 +85,7 @@ int main(){
     generate_oscilator(samples, 44100, sample_rate, 90.0);
 
     WAVHeader wav_header = WavCreateHeader(sizeof(samples), 1, sample_rate);
-    FILE* fp = fopen("resources/output_32.wav", "wb");
+    FILE* fp = fopen("test/output_32.wav", "wb");
     WavWriteToFile(fp, wav_header, samples, 44100);
     fclose(fp);
 
